@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+ 
+<!DOCTYPE html>
 <html lang="ta">
 <head>
 <meta charset="UTF-8">
@@ -6,26 +7,37 @@
 <title>TAMIL JOBS</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#222}
-header{background:#075e45;color:white;padding:22px;text-align:center}
+body{margin:0;font-family:Arial;background:#f1f5f9;color:#222}
+header{background:#075e45;color:white;text-align:center;padding:22px}
 header h1{margin:0}
-header p{margin:8px 0 0}
-.container{padding:12px;max-width:850px;margin:auto}
-.stats{display:flex;gap:8px}
-.stat{flex:1;background:white;padding:12px;text-align:center;border-radius:10px}
-.stat b{display:block;color:#075e45;font-size:22px}
-input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:5px 0}
-.tabs{display:flex;gap:6px;margin:10px 0}
-button{padding:11px;border:0;border-radius:8px;background:#ddd;cursor:pointer}
-.tabs button{flex:1}
-button.active{background:#087b53;color:white}
-.job{background:white;padding:16px;border-radius:12px;margin:12px 0;box-shadow:0 2px 7px #ddd}
-.job h3{color:#075e45;margin:0 0 10px}
-.job p{margin:7px 0;font-size:14px}
-.apply{display:inline-block;background:#087b53;color:white;padding:10px 14px;border-radius:7px;text-decoration:none;margin-top:8px}
+.container{max-width:850px;margin:auto;padding:12px}
+.stats{display:flex;gap:7px}
+.stat{flex:1;background:white;padding:13px 5px;text-align:center;border-radius:10px}
+.stat b{display:block;color:#087b53;font-size:21px}
+input,select,textarea{
+width:100%;padding:12px;margin:6px 0;
+border:1px solid #ccc;border-radius:8px;font-size:15px
+}
+button,.apply{padding:11px;border:0;border-radius:8px;
+background:#087b53;color:white;cursor:pointer}
+.tabs{display:flex;gap:5px;margin:12px 0}
+.tabs button{flex:1;background:#ddd;color:#222}
+.tabs button.active{background:#087b53;color:white}
+.job{background:white;padding:16px;border-radius:12px;
+margin:12px 0;box-shadow:0 2px 7px #ddd}
+.job h3{color:#075e45;margin-top:0}
+.job p{font-size:14px;margin:8px 0}
+.apply{display:inline-block;text-decoration:none;margin-top:8px}
 .save{background:#e8f3ed;color:#075e45}
-.ad{background:white;border:1px dashed #aaa;padding:14px;text-align:center;margin:12px 0;color:#666}
-footer{text-align:center;padding:20px;background:#075e45;color:white}
+.admin{background:white;padding:15px;border-radius:12px;margin:15px 0}
+.admin h2{color:#075e45}
+.hidden{display:none}
+.ad{background:white;border:1px dashed #aaa;
+padding:15px;text-align:center;margin:12px 0;color:#666}
+.small{font-size:12px;color:#666}
+.delete{background:#c62828}
+.edit{background:#e6a000;color:#222}
+footer{background:#075e45;color:white;text-align:center;padding:20px}
 </style>
 </head>
 <body>
@@ -33,6 +45,9 @@ footer{text-align:center;padding:20px;background:#075e45;color:white}
 <header>
 <h1>💼 தமிழ் வேலைவாய்ப்பு</h1>
 <p>TAMIL JOBS – உங்கள் வேலை உங்கள் கையில்!</p>
+<button onclick="adminLogin()" style="background:white;color:#075e45">
+🔐 ADMIN LOGIN
+</button>
 </header>
 
 <div class="container">
@@ -45,9 +60,45 @@ footer{text-align:center;padding:20px;background:#075e45;color:white}
 
 <div class="ad">AdMob விளம்பர இடம்</div>
 
-<input id="search" placeholder="வேலையைத் தேடுங்கள்..." oninput="showJobs()">
+<div id="adminPanel" class="admin hidden">
+<h2>⚙️ ADMIN PANEL</h2>
+<h3 id="formTitle">புதிய வேலை சேர்க்கவும்</h3>
 
-<select id="district" onchange="showJobs()">
+<input id="title" placeholder="வேலை பெயர்">
+<select id="type">
+<option value="அரசு">அரசு வேலை</option>
+<option value="தனியார்">தனியார் வேலை</option>
+</select>
+
+<select id="district">
+<option value="ஈரோடு">ஈரோடு</option>
+<option value="சென்னை">சென்னை</option>
+<option value="கோயம்புத்தூர்">கோயம்புத்தூர்</option>
+<option value="மதுரை">மதுரை</option>
+<option value="திருச்சி">திருச்சி</option>
+<option value="சேலம்">சேலம்</option>
+<option value="தமிழ்நாடு முழுவதும்">தமிழ்நாடு முழுவதும்</option>
+<option value="இந்தியா முழுவதும்">இந்தியா முழுவதும்</option>
+</select>
+
+<input id="edu" placeholder="கல்வித்தகுதி">
+<input id="vacancy" type="number" min="0" placeholder="காலியிட எண்ணிக்கை">
+<input id="salary" placeholder="சம்பளம்">
+<input id="fee" placeholder="விண்ணப்பக் கட்டணம்">
+<input id="date" placeholder="கடைசி தேதி">
+<input id="url" type="url" placeholder="அதிகாரப்பூர்வ Apply Link">
+<textarea id="description" placeholder="கூடுதல் வேலை விவரங்கள்"></textarea>
+
+<button onclick="addJob()" id="addBtn">➕ வேலை சேர்க்கவும்</button>
+<button onclick="cancelEdit()" style="background:#777">ரத்து</button>
+<button onclick="adminLogout()" style="background:#c62828">Logout</button>
+
+<p class="small">நீங்கள் சேர்க்கும் வேலை விவரங்கள் இந்த சாதனத்தின் உலாவியில் சேமிக்கப்படும்.</p>
+</div>
+
+<input id="search" placeholder="🔍 வேலை தேடுங்கள்..." oninput="showJobs()">
+
+<select id="districtFilter" onchange="showJobs()">
 <option value="">அனைத்து மாவட்டங்களும்</option>
 <option>ஈரோடு</option>
 <option>சென்னை</option>
@@ -68,74 +119,141 @@ footer{text-align:center;padding:20px;background:#075e45;color:white}
 <div class="ad">AdMob Banner Advertisement</div>
 
 <div class="job">
-<h3>விண்ணப்பிக்கும் முறை</h3>
-<p>1. வேலை விவரங்களைப் படிக்கவும்.</p>
-<p>2. கல்வித் தகுதியைச் சரிபார்க்கவும்.</p>
-<p>3. அதிகாரப்பூர்வ இணையதளத்தைத் திறக்கவும்.</p>
-<p>4. விண்ணப்பத்தைச் சமர்ப்பிக்கவும்.</p>
+<h3>📌 அதிகாரப்பூர்வ வேலைவாய்ப்பு இணையதளங்கள்</h3>
+<p><a href="https://www.tnpsc.gov.in/" target="_blank">TNPSC அரசு வேலைகள்</a></p>
+<p><a href="https://www.ncs.gov.in/" target="_blank">National Career Service</a></p>
+<p><a href="https://employmentexchange.tn.gov.in/" target="_blank">தமிழ்நாடு வேலைவாய்ப்புத் துறை</a></p>
 </div>
 
 </div>
 
 <footer>
 <p>© 2026 TAMIL JOBS</p>
-<p>அதிகாரப்பூர்வ அறிவிப்பைச் சரிபார்த்து விண்ணப்பிக்கவும்.</p>
+<p>அதிகாரப்பூர்வ அறிவிப்புகளைச் சரிபார்த்து விண்ணப்பிக்கவும்.</p>
 </footer>
 
 <script>
-const data=[
-{
-id:1,
-title:"அலுவலக உதவியாளர்",
-type:"அரசு",
-district:"ஈரோடு",
-edu:"10ஆம் வகுப்பு",
-vacancies:"அறிவிப்பில் பார்க்கவும்",
-salary:"அறிவிப்பில் பார்க்கவும்",
-fee:"அறிவிப்பில் பார்க்கவும்",
-date:"அறிவிப்பில் பார்க்கவும்",
-url:"https://www.tnpsc.gov.in/"
-},
-{
-id:2,
-title:"கணினி ஆபரேட்டர்",
-type:"தனியார்",
-district:"கோயம்புத்தூர்",
-edu:"12ஆம் வகுப்பு",
-vacancies:"நிறுவனத்திடம் சரிபார்க்கவும்",
-salary:"நிறுவனத்திடம் சரிபார்க்கவும்",
-fee:"சரிபார்க்கவும்",
-date:"நிறுவன இணையதளத்தில் பார்க்கவும்",
-url:"https://www.ncs.gov.in/"
-},
-{
-id:3,
-title:"Junior Assistant",
-type:"அரசு",
-district:"சென்னை",
-edu:"பட்டப்படிப்பு",
-vacancies:"அறிவிப்பில் பார்க்கவும்",
-salary:"அறிவிப்பில் பார்க்கவும்",
-fee:"அறிவிப்பில் பார்க்கவும்",
-date:"அறிவிப்பில் பார்க்கவும்",
-url:"https://www.tnpsc.gov.in/"
-},
-{
-id:4,
-title:"Data Entry Operator",
-type:"தனியார்",
-district:"ஈரோடு",
-edu:"12ஆம் வகுப்பு",
-vacancies:"நிறுவனத்திடம் சரிபார்க்கவும்",
-salary:"நிறுவனத்திடம் சரிபார்க்கவும்",
-fee:"சரிபார்க்கவும்",
-date:"நிறுவன இணையதளத்தில் பார்க்கவும்",
-url:"https://www.ncs.gov.in/"
-}
-];
+const ADMIN_PIN="1234";
 
+let data=JSON.parse(localStorage.getItem("tj_jobs")||"[]");
+let saved=JSON.parse(localStorage.getItem("tj_saved")||"[]");
 let current="அனைத்தும்";
-let savedJobs=JSON.parse(localStorage.getItem("savedJobs")||"[]");
+let editId=null;
+let logged=false;
+
+function adminLogin(){
+let pin=prompt("Admin Password உள்ளிடவும்");
+if(pin===ADMIN_PIN){
+logged=true;
+document.getElementById("adminPanel").classList.remove("hidden");
+alert("Admin Login வெற்றி!");
+}else if(pin!==null){
+alert("தவறான Password!");
+}
+}
+
+function adminLogout(){
+logged=false;
+document.getElementById("adminPanel").classList.add("hidden");
+cancelEdit();
+}
+
+function addJob(){
+if(!logged)return alert("Admin Login செய்யவும்");
+
+let title=document.getElementById("title").value.trim();
+let url=document.getElementById("url").value.trim();
+
+if(!title||!url){
+alert("வேலை பெயர் மற்றும் Apply Link அவசியம்!");
+return;
+}
+
+try{
+let parsed=new URL(url);
+if(parsed.protocol!=="https:"&&parsed.protocol!=="http:"){
+alert("சரியான இணையதள லிங்க் கொடுக்கவும்");
+return;
+}
+}catch(e){
+alert("சரியான Apply Link கொடுக்கவும்");
+return;
+}
+
+let job={
+id:editId||Date.now(),
+title,
+type:document.getElementById("type").value,
+district:document.getElementById("district").value,
+edu:document.getElementById("edu").value,
+vacancy:document.getElementById("vacancy").value,
+salary:document.getElementById("salary").value,
+fee:document.getElementById("fee").value,
+date:document.getElementById("date").value,
+url,
+description:document.getElementById("description").value
+};
+
+if(editId){
+data=data.map(x=>x.id===editId?job:x);
+}else{
+data.push(job);
+}
+
+localStorage.setItem("tj_jobs",JSON.stringify(data));
+alert("வேலை விவரம் சேமிக்கப்பட்டது!");
+cancelEdit();
+showJobs();
+}
+
+function cancelEdit(){
+editId=null;
+["title","edu","vacancy","salary","fee","date","url","description"]
+.forEach(id=>document.getElementById(id).value="");
+document.getElementById("formTitle").textContent="புதிய வேலை சேர்க்கவும்";
+document.getElementById("addBtn").textContent="➕ வேலை சேர்க்கவும்";
+}
+
+function editJob(id){
+if(!logged)return;
+let j=data.find(x=>x.id===id);
+if(!j)return;
+
+editId=id;
+document.getElementById("title").value=j.title;
+document.getElementById("type").value=j.type;
+document.getElementById("district").value=j.district;
+document.getElementById("edu").value=j.edu;
+document.getElementById("vacancy").value=j.vacancy;
+document.getElementById("salary").value=j.salary;
+document.getElementById("fee").value=j.fee;
+document.getElementById("date").value=j.date;
+document.getElementById("url").value=j.url;
+document.getElementById("description").value=j.description||"";
+
+document.getElementById("formTitle").textContent="வேலையைத் திருத்தவும்";
+document.getElementById("addBtn").textContent="💾 மாற்றங்களைச் சேமிக்கவும்";
+window.scrollTo(0,0);
+}
+
+function deleteJob(id){
+if(!logged)return;
+if(confirm("இந்த வேலையை நீக்க வேண்டுமா?")){
+data=data.filter(x=>x.id!==id);
+localStorage.setItem("tj_jobs",JSON.stringify(data));
+showJobs();
+}
+}
+
+function saveJob(id){
+if(saved.includes(id)){
+saved=saved.filter(x=>x!==id);
+}else{
+saved.push(id);
+}
+localStorage.setItem("tj_saved",JSON.stringify(saved));
+showJobs();
+}
 
 function setType(type,btn){
 current=type;
@@ -144,19 +262,16 @@ btn.classList.add("active");
 showJobs();
 }
 
-function saveJob(id){
-if(savedJobs.includes(id)){
-savedJobs=savedJobs.filter(x=>x!==id);
-}else{
-savedJobs.push(id);
-}
-localStorage.setItem("savedJobs",JSON.stringify(savedJobs));
-showJobs();
+function safe(v){
+return String(v??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#39;"
+}[c]));
 }
 
 function showJobs(){
 let search=document.getElementById("search").value.toLowerCase();
-let district=document.getElementById("district").value;
+let district=document.getElementById("districtFilter").value;
 
 let list=data.filter(j=>
 (current==="அனைத்தும்"||j.type===current)&&
@@ -166,27 +281,39 @@ j.district.toLowerCase().includes(search))
 );
 
 document.getElementById("total").textContent=list.length;
-document.getElementById("vacancies").textContent="—";
-document.getElementById("saved").textContent=savedJobs.length;
+
+let count=data.reduce((sum,j)=>sum+(Number(j.vacancy)||0),0);
+document.getElementById("vacancies").textContent=count;
+document.getElementById("saved").textContent=saved.length;
 
 document.getElementById("jobs").innerHTML=list.length?
 list.map(j=>`
 <div class="job">
-<h3>${j.title}</h3>
-<p>வகை: ${j.type}</p>
-<p>மாவட்டம்: ${j.district}</p>
-<p>கல்வித்தகுதி: ${j.edu}</p>
-<p>காலியிடங்கள்: ${j.vacancies}</p>
-<p>சம்பளம்: ${j.salary}</p>
-<p>விண்ணப்பக் கட்டணம்: ${j.fee}</p>
-<p>கடைசி தேதி: ${j.date}</p>
-<a class="apply" href="${j.url}" target="_blank">விண்ணப்பிக்கவும்</a>
+<h3>${safe(j.title)}</h3>
+<p>வகை: ${safe(j.type)}</p>
+<p>மாவட்டம்: ${safe(j.district)}</p>
+<p>கல்வித்தகுதி: ${safe(j.edu||"குறிப்பிடப்படவில்லை")}</p>
+<p>காலியிடங்கள்: ${safe(j.vacancy||"தெரியவில்லை")}</p>
+<p>சம்பளம்: ${safe(j.salary||"குறிப்பிடப்படவில்லை")}</p>
+<p>விண்ணப்பக் கட்டணம்: ${safe(j.fee||"அறிவிப்பைப் பார்க்கவும்")}</p>
+<p>கடைசி தேதி: ${safe(j.date||"அறிவிப்பைப் பார்க்கவும்")}</p>
+<p>${safe(j.description||"")}</p>
+
+<a class="apply" href="${safe(j.url)}" target="_blank" rel="noopener">
+விண்ணப்பிக்கவும்
+</a>
+
 <button class="save" onclick="saveJob(${j.id})">
-${savedJobs.includes(j.id)?"★ சேமித்தது":"☆ சேமி"}
+${saved.includes(j.id)?"★ சேமித்தது":"☆ சேமி"}
 </button>
+
+${logged?`
+<button class="edit" onclick="editJob(${j.id})">திருத்து</button>
+<button class="delete" onclick="deleteJob(${j.id})">நீக்கு</button>
+`:""}
 </div>
 `).join("")
-:"<div class='job'>வேலைகள் எதுவும் இல்லை</div>";
+:"<div class='job'>தற்போது வேலைகள் எதுவும் சேர்க்கப்படவில்லை. புதிய அறிவிப்புகளை Admin சேர்க்கலாம்.</div>";
 }
 
 showJobs();
