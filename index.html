@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ta">
 <head>
 <meta charset="UTF-8">
@@ -11,75 +10,185 @@ body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#222}
 header{background:#075e45;color:white;padding:22px;text-align:center}
 header h1{margin:0}
 header p{margin:8px 0 0}
-.search{padding:15px}
-input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;font-size:16px;margin-bottom:10px}
-.tabs{display:flex;gap:8px;padding:0 12px}
-.tabs button{flex:1;padding:12px;border:0;border-radius:8px;background:#ddd}
-.tabs button.active{background:#087b53;color:white}
-.jobs{padding:12px}
-.job{background:white;padding:16px;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 7px #ddd}
+.container{padding:12px;max-width:850px;margin:auto}
+.stats{display:flex;gap:8px}
+.stat{flex:1;background:white;padding:12px;text-align:center;border-radius:10px}
+.stat b{display:block;color:#075e45;font-size:22px}
+input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin:5px 0}
+.tabs{display:flex;gap:6px;margin:10px 0}
+button{padding:11px;border:0;border-radius:8px;background:#ddd;cursor:pointer}
+.tabs button{flex:1}
+button.active{background:#087b53;color:white}
+.job{background:white;padding:16px;border-radius:12px;margin:12px 0;box-shadow:0 2px 7px #ddd}
 .job h3{color:#075e45;margin:0 0 10px}
-.job p{margin:6px 0}
-.apply{display:inline-block;background:#087b53;color:white;padding:10px 18px;border-radius:7px;text-decoration:none;margin-top:8px}
+.job p{margin:7px 0;font-size:14px}
+.apply{display:inline-block;background:#087b53;color:white;padding:10px 14px;border-radius:7px;text-decoration:none;margin-top:8px}
+.save{background:#e8f3ed;color:#075e45}
+.ad{background:white;border:1px dashed #aaa;padding:14px;text-align:center;margin:12px 0;color:#666}
 footer{text-align:center;padding:20px;background:#075e45;color:white}
 </style>
 </head>
 <body>
+
 <header>
-<h1>தமிழ் வேலைவாய்ப்பு</h1>
+<h1>💼 தமிழ் வேலைவாய்ப்பு</h1>
 <p>TAMIL JOBS – உங்கள் வேலை உங்கள் கையில்!</p>
 </header>
 
-<div class="search">
+<div class="container">
+
+<div class="stats">
+<div class="stat"><b id="total">0</b>வேலைகள்</div>
+<div class="stat"><b id="vacancies">0</b>காலியிடங்கள்</div>
+<div class="stat"><b id="saved">0</b>சேமித்தவை</div>
+</div>
+
+<div class="ad">AdMob விளம்பர இடம்</div>
+
 <input id="search" placeholder="வேலையைத் தேடுங்கள்..." oninput="showJobs()">
+
 <select id="district" onchange="showJobs()">
 <option value="">அனைத்து மாவட்டங்களும்</option>
-<option>சென்னை</option><option>கோயம்புத்தூர்</option>
-<option>ஈரோடு</option><option>மதுரை</option>
-<option>திருச்சி</option><option>சேலம்</option>
+<option>ஈரோடு</option>
+<option>சென்னை</option>
+<option>கோயம்புத்தூர்</option>
+<option>மதுரை</option>
+<option>திருச்சி</option>
+<option>சேலம்</option>
 </select>
-</div>
 
 <div class="tabs">
 <button class="active" onclick="setType('அனைத்தும்',this)">அனைத்தும்</button>
-<button onclick="setType('அரசு',this)">அரசு வேலை</button>
+<button onclick="setType('அரசு',this)">அரசு</button>
 <button onclick="setType('தனியார்',this)">தனியார்</button>
 </div>
 
-<div class="jobs" id="jobs"></div>
+<div id="jobs"></div>
+
+<div class="ad">AdMob Banner Advertisement</div>
+
+<div class="job">
+<h3>விண்ணப்பிக்கும் முறை</h3>
+<p>1. வேலை விவரங்களைப் படிக்கவும்.</p>
+<p>2. கல்வித் தகுதியைச் சரிபார்க்கவும்.</p>
+<p>3. அதிகாரப்பூர்வ இணையதளத்தைத் திறக்கவும்.</p>
+<p>4. விண்ணப்பத்தைச் சமர்ப்பிக்கவும்.</p>
+</div>
+
+</div>
 
 <footer>
 <p>© 2026 TAMIL JOBS</p>
-<p>வேலைவாய்ப்பு தகவல்களுக்காக எங்களுடன் இணைந்திருங்கள்!</p>
+<p>அதிகாரப்பூர்வ அறிவிப்பைச் சரிபார்த்து விண்ணப்பிக்கவும்.</p>
 </footer>
 
 <script>
 const data=[
-{title:"அலுவலக உதவியாளர்",type:"அரசு",district:"ஈரோடு",edu:"10ஆம் வகுப்பு",url:"https://www.tnpsc.gov.in/"},
-{title:"கணினி ஆபரேட்டர்",type:"தனியார்",district:"கோயம்புத்தூர்",edu:"12ஆம் வகுப்பு",url:"https://www.ncs.gov.in/"},
-{title:"Junior Assistant",type:"அரசு",district:"சென்னை",edu:"பட்டப்படிப்பு",url:"https://www.tnpsc.gov.in/"},
-{title:"Data Entry Operator",type:"தனியார்",district:"ஈரோடு",edu:"12ஆம் வகுப்பு",url:"https://www.ncs.gov.in/"}
+{
+id:1,
+title:"அலுவலக உதவியாளர்",
+type:"அரசு",
+district:"ஈரோடு",
+edu:"10ஆம் வகுப்பு",
+vacancies:"அறிவிப்பில் பார்க்கவும்",
+salary:"அறிவிப்பில் பார்க்கவும்",
+fee:"அறிவிப்பில் பார்க்கவும்",
+date:"அறிவிப்பில் பார்க்கவும்",
+url:"https://www.tnpsc.gov.in/"
+},
+{
+id:2,
+title:"கணினி ஆபரேட்டர்",
+type:"தனியார்",
+district:"கோயம்புத்தூர்",
+edu:"12ஆம் வகுப்பு",
+vacancies:"நிறுவனத்திடம் சரிபார்க்கவும்",
+salary:"நிறுவனத்திடம் சரிபார்க்கவும்",
+fee:"சரிபார்க்கவும்",
+date:"நிறுவன இணையதளத்தில் பார்க்கவும்",
+url:"https://www.ncs.gov.in/"
+},
+{
+id:3,
+title:"Junior Assistant",
+type:"அரசு",
+district:"சென்னை",
+edu:"பட்டப்படிப்பு",
+vacancies:"அறிவிப்பில் பார்க்கவும்",
+salary:"அறிவிப்பில் பார்க்கவும்",
+fee:"அறிவிப்பில் பார்க்கவும்",
+date:"அறிவிப்பில் பார்க்கவும்",
+url:"https://www.tnpsc.gov.in/"
+},
+{
+id:4,
+title:"Data Entry Operator",
+type:"தனியார்",
+district:"ஈரோடு",
+edu:"12ஆம் வகுப்பு",
+vacancies:"நிறுவனத்திடம் சரிபார்க்கவும்",
+salary:"நிறுவனத்திடம் சரிபார்க்கவும்",
+fee:"சரிபார்க்கவும்",
+date:"நிறுவன இணையதளத்தில் பார்க்கவும்",
+url:"https://www.ncs.gov.in/"
+}
 ];
+
 let current="அனைத்தும்";
+let savedJobs=JSON.parse(localStorage.getItem("savedJobs")||"[]");
+
 function setType(type,btn){
 current=type;
 document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 showJobs();
 }
+
+function saveJob(id){
+if(savedJobs.includes(id)){
+savedJobs=savedJobs.filter(x=>x!==id);
+}else{
+savedJobs.push(id);
+}
+localStorage.setItem("savedJobs",JSON.stringify(savedJobs));
+showJobs();
+}
+
 function showJobs(){
-let s=document.getElementById("search").value.toLowerCase();
-let d=document.getElementById("district").value;
-let list=data.filter(j=>(current==="அனைத்தும்"||j.type===current)&&(!d||j.district===d)&&(j.title.toLowerCase().includes(s)||j.district.includes(s)));
-document.getElementById("jobs").innerHTML=list.length?list.map(j=>`
+let search=document.getElementById("search").value.toLowerCase();
+let district=document.getElementById("district").value;
+
+let list=data.filter(j=>
+(current==="அனைத்தும்"||j.type===current)&&
+(!district||j.district===district)&&
+(j.title.toLowerCase().includes(search)||
+j.district.toLowerCase().includes(search))
+);
+
+document.getElementById("total").textContent=list.length;
+document.getElementById("vacancies").textContent="—";
+document.getElementById("saved").textContent=savedJobs.length;
+
+document.getElementById("jobs").innerHTML=list.length?
+list.map(j=>`
 <div class="job">
 <h3>${j.title}</h3>
 <p>வகை: ${j.type}</p>
 <p>மாவட்டம்: ${j.district}</p>
 <p>கல்வித்தகுதி: ${j.edu}</p>
+<p>காலியிடங்கள்: ${j.vacancies}</p>
+<p>சம்பளம்: ${j.salary}</p>
+<p>விண்ணப்பக் கட்டணம்: ${j.fee}</p>
+<p>கடைசி தேதி: ${j.date}</p>
 <a class="apply" href="${j.url}" target="_blank">விண்ணப்பிக்கவும்</a>
-</div>`).join(""):"வேலைகள் எதுவும் இல்லை";
+<button class="save" onclick="saveJob(${j.id})">
+${savedJobs.includes(j.id)?"★ சேமித்தது":"☆ சேமி"}
+</button>
+</div>
+`).join("")
+:"<div class='job'>வேலைகள் எதுவும் இல்லை</div>";
 }
+
 showJobs();
 </script>
 </body>
