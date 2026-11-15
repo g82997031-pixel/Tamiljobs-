@@ -1,1 +1,34 @@
 
+[
+  {
+    "id": 1,
+    "title": "TNPSC Group 4",
+    "company": "Tamil Nadu Public Service Commission",
+    "department": "அரசுத் துறை",
+    "type": "அரசு",
+    "district": "அனைத்து மாவட்டங்களும்",
+    "vacancies": 0,
+    "qualification": "10ஆம் வகுப்பு",
+    "salary": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "fee": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "lastDate": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "applyUrl": "https://www.tnpsc.gov.in/",
+    "description": "புதிய அறிவிப்பு மற்றும் காலியிட எண்ணிக்கையை TNPSC இணையதளத்தில் சரிபார்க்கவும்."
+  },
+  {
+    "id": 2,
+    "title": "Railway Recruitment",
+    "company": "Indian Railways",
+    "department": "ரயில்வே",
+    "type": "அரசு",
+    "district": "அனைத்து மாவட்டங்களும்",
+    "vacancies": 0,
+    "qualification": "அறிவிப்பின்படி",
+    "salary": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "fee": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "lastDate": "அதிகாரப்பூர்வ அறிவிப்பைப் பார்க்கவும்",
+    "applyUrl": "https://www.rrbapply.gov.in/",
+    "description": "புதிய வேலை அறிவிப்புகளை அதிகாரப்பூர்வ இணையதளத்தில் சரிபார்க்கவும்."
+  }
+]
+
